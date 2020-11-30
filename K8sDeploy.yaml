@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gs-spring-boot-docker
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: gs-spring-boot-docker
+    spec:
+      containers:
+      - image: kmclouddevops.azurecr.io/spring-boot-docker:dev
+        name: gs-spring-boot-docker
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+        - name: regsecret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gs-spring-boot-docker
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  selector:
+    app: gs-spring-boot-docker
+  type: LoadBalancer
