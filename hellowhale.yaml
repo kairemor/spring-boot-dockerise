@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gs-spring-boot-docker
+  labels:
+    app: spring
+spec:
+  replicas: 3
+  selector:
+      matchLabels:
+        app: spring
+  template:
+    metadata:
+      labels:
+        app: spring
+    spec:
+      containers:
+      - name: spring-boot 
+        image: kairemor/spring-boot:dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+
