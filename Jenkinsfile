@@ -10,7 +10,15 @@ pipeline {
       }
     }
     
-    stage("Build image") {
+    stage("Build jar file"){
+     steps {
+        script {
+	  sh 'mvn clean install'
+        }
+      }
+    }
+
+    stage("Build Docker  image") {
       steps {
         script {
           myapp = docker.build("kairemor/spring-boot:${env.BUILD_ID}")
