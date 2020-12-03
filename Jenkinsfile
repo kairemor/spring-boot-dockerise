@@ -39,8 +39,10 @@ pipeline {
 
     stage("Docker image remove local") {
       steps {
-        docker rmi registry.hub.docker.com/kairemor/spring-boot:latest
-      }
+	script {
+        sh 'docker rmi registry.hub.docker.com/kairemor/spring-boot:latest'
+	}      
+}
     }
 
     stage("Kubernetes deploiment and service") {
