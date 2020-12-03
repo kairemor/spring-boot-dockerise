@@ -37,22 +37,31 @@ pipeline {
       }
     }
 
-    stage("Docker image remove local") {
-      steps {
-	script {
+  stage("Docker image remove local") {
+    steps {
+      script {
         sh 'docker rmi registry.hub.docker.com/kairemor/spring-boot:latest'
-	}      
-}
+      }      
     }
+  }
 
-    stage("Kubernetes deploiment and service") {
-      steps {
-        script {
-          sh 'kubectl apply -f spring-deploiment.yaml'
-          sh 'kubectl apply -f spring-service.yaml'
-        }
+  stage("Kubernetes remove previous deploiment ") {
+    steps {
+      script {
+        sh 'kubectl delete deployments.v1.apps gs-spring-boot-docker'
       }
     }
+  }
+
+
+  stage("Kubernetes deploiment and service") {
+    steps {
+      script {
+        sh 'kubectl apply -f spring-deploiment.yaml'
+        sh 'kubectl apply -f spring-service.yaml'
+      }
+    }
+  }
 
     stage("Kubernetes service"){
       steps {
