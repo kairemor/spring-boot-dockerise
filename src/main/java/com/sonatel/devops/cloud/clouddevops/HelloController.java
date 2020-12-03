@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HelloController {
   @RequestMapping("/")
   public String hello() {
-    return "Hello world version 3";
+    return "Hello world version 4";
   }
 }
