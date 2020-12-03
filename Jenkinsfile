@@ -11,9 +11,9 @@ pipeline {
     }
     
     stage("Build jar file"){
-     steps {
+      steps {
         script {
-	  sh 'mvn clean install'
+	        sh 'mvn clean install'
         }
       }
     }
@@ -36,7 +36,15 @@ pipeline {
         }
       }
     }
-    
+
+    stage("Docker image remove local") {
+      steps {
+        script {
+          sh 'docker rmi kairemor/spring-boot'
+        }
+      }
+    }
+
     stage("Kubernetes deploiment and service") {
       steps {
         script {
@@ -53,5 +61,6 @@ pipeline {
         }	
       }
     }
+    
   }
 }
