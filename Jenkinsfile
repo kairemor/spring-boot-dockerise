@@ -39,11 +39,9 @@ pipeline {
 
     stage("Docker image remove local") {
       steps {
-        script {
-          sh 'docker kairemor/spring-boot:${env.BUILD_ID}'
-	  sh 'docker rmi registry.hub.docker.com/kairemor/spring-boot:${env.BUILD_ID}'
-	  sh 'docker rmi registry.hub.docker.com/kairemor/spring-boot:latest'
-        }
+        docker kairemor/spring-boot:"${env.BUILD_ID}"
+        docker rmi registry.hub.docker.com/kairemor/spring-boot:"${env.BUILD_ID}"
+        docker rmi registry.hub.docker.com/kairemor/spring-boot:latest
       }
     }
 
