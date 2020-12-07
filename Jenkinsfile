@@ -10,6 +10,18 @@ pipeline {
       }
     }
     
+    stage('Sonarqube code quality test'){
+      steps {
+	script {
+	  sh 'mvn sonar:sonar \
+                                                 -Dsonar.projectKey=demo-project \
+                                                 -Dsonar.host.url=http://localhost:9000 \
+                                                 -Dsonar.login=d28c71e7d3049c3eb5478b36cfef8ccf620cd307
+'
+	}
+      }
+    }
+    
     stage("Build jar file"){
       steps {
         script {
